@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GLobalStyle } from "./components/styles/GlobalStyle";
 import SignInForm from "./components/SignInForm";
@@ -8,11 +8,11 @@ import { theme } from "./components/styles/theme";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <HashRouter>
         <GLobalStyle />
         <Route path="/" exact component={SignInForm} />
         <Route path="/register" component={RegisterForm} />
-      </Router>
+      </HashRouter>
     </ThemeProvider>
   );
 }
