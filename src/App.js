@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { GLobalStyle } from "./components/styles/GlobalStyle";
+import SignInForm from "./components/SignInForm";
+import RegisterForm from "./components/RegisterForm";
+import { theme } from "./components/styles/theme";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <GLobalStyle />
+        <Route path="/" exact component={SignInForm} />
+        <Route path="/register" component={RegisterForm} />
+      </Router>
+    </ThemeProvider>
   );
 }
 
