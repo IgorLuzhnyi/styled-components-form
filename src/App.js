@@ -4,6 +4,7 @@ import { GLobalStyle } from "./components/styles/GlobalStyle";
 import SignInForm from "./components/SignInForm";
 import RegisterForm from "./components/RegisterForm";
 import { theme } from "./components/styles/theme";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <GLobalStyle />
         <Route path="/" exact component={SignInForm} />
         <Route path="/register" component={RegisterForm} />
+        <Route path="/home" component={Home} />
       </HashRouter>
     </ThemeProvider>
   );

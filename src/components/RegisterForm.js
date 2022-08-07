@@ -1,13 +1,47 @@
 import { StyledForm } from "./styles/StyledForm";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { validationFields } from "../constants/constants";
+import { useState, useEffect, useRef } from "react";
 import padlock from "../padlock.png";
 
 const RegisterForm = () => {
-  const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+
+  // const [adAgree, setAdAgree] = useState(false);
+  const [allowed, setAllowed] = useState("none");
+
+  const checkColorField = (e) =>
+    validationFields[e.target.classList[0]].test(e.target.value)
+      ? (e.target.closest(".input-wrapper").style.border = "2px solid green")
+      : (e.target.closest(".input-wrapper").style.border = "2px solid red");
+
+  const checkValueFields = () =>
+    validationFields.email.test(email) &&
+    validationFields.pw.test(pw) &&
+    validationFields.firstname.test(firstname) &&
+    validationFields.lastname.test(lastname);
+
+  const checkAuthorisation = () =>
+    checkValueFields() ? setAllowed("auto") : setAllowed("none");
+
+  const saveData = () => {
+    localStorage.clear();
+    const userData = {
+      firstname,
+      lastname,
+      email,
+      pw,
+    };
+    localStorage.setItem("user", JSON.stringify(userData));
+  };
+
+  useEffect(() => {
+    document.title = "Register";
+    checkAuthorisation();
+  }, [email, pw, firstname, lastname, allowed]);
 
   return (
     <StyledForm>
@@ -21,37 +55,68 @@ const RegisterForm = () => {
             <div className="input-wrapper">
               <input
                 type="text"
-                className="user-firstname"
+                className="firstname"
                 placeholder="First Name *"
+                value={firstname}
+                onChange={(e) => {
+                  checkColorField(e);
+                  setFirstname(e.target.value);
+                }}
               />
             </div>
             <div className="input-wrapper">
               <input
                 type="text"
-                className="user-lastname"
+                className="lastname"
                 placeholder="Last Name *"
+                value={lastname}
+                onChange={(e) => {
+                  checkColorField(e);
+                  setLastname(e.target.value);
+                }}
               />
             </div>
           </div>
           <div className="input-wrapper">
             <input
               type="text"
-              className="user-email"
+              className="email"
               placeholder="Email Address *"
+              value={email}
+              onChange={(e) => {
+                checkColorField(e);
+                setEmail(e.target.value);
+              }}
             />
           </div>
           <div className="input-wrapper">
-            <input type="text" className="user-pw" placeholder="Password *" />
+            <input
+              type="text"
+              className="pw"
+              placeholder="Password *"
+              value={pw}
+              onChange={(e) => {
+                checkColorField(e);
+                setPw(e.target.value);
+              }}
+            />
           </div>
         </div>
         <div className="remember-container">
-          <input type="checkbox" className="remember_me" />
+          <input type="checkbox" className="ad-agree" />
           <p>
             I want to receive inspiration, marketing promotions and updates via
             email.
           </p>
         </div>
-        <button className="sign-in-btn">SIGN UP</button>
+        <Link
+          to="/home"
+          className="sign-up-btn"
+          style={{ pointerEvents: allowed }}
+          onClick={saveData}
+        >
+          SIGN UP
+        </Link>
         <div className="form-additional">
           <Link to="/" className="form-link reg-additional">
             Already have an account? Sign in

@@ -58,7 +58,7 @@ export const StyledForm = styled.div`
 
   .user-creds input:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.$colorPrimary};
+    box-shadow: inset 0 0 2px #fff;
     box-sizing: border-box;
   }
 
@@ -83,15 +83,20 @@ export const StyledForm = styled.div`
     align-self: flex-start;
   }
 
-  .remember_me {
+  .remember_me,
+  .ad-agree {
     margin: 0 10px 0 0;
   }
 
-  .sign-in-btn {
-    display: block;
+  .sign-in-btn,
+  .sign-up-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 20px 0 15px;
     width: 100%;
     font-weight: bold;
+    text-decoration: none;
     border: none;
     border-radius: 4px;
     height: 35px;
@@ -108,6 +113,7 @@ export const StyledForm = styled.div`
   .form-link {
     color: ${({ theme }) => theme.$btnClr};
     text-decoration: none;
+    cursor: pointer;
   }
 
   .reg-additional {
