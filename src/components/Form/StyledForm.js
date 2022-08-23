@@ -102,6 +102,7 @@ export const StyledForm = styled.div`
     height: 35px;
     background-color: ${({ theme }) => theme.$btnClr};
     color: ${({ theme }) => theme.$bkg};
+    cursor: pointer;
   }
 
   .form-additional {

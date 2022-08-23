@@ -1,8 +1,8 @@
-import { StyledForm } from "./styles/StyledForm";
+import { StyledForm } from "./StyledForm";
 import { Link } from "react-router-dom";
-import { validationFields } from "../constants/constants";
-import { useState, useEffect, useRef } from "react";
-import padlock from "../padlock.png";
+import { validationFields } from "../../constants/constants";
+import { useState, useEffect } from "react";
+import padlock from "../../padlock.png";
 
 const RegisterForm = () => {
   const [firstname, setFirstname] = useState("");

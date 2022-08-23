@@ -1,20 +1,32 @@
-import { StyledForm } from "./styles/StyledForm";
-import { Link } from "react-router-dom";
-import { validationFields } from "../constants/constants";
+import { StyledForm } from "./StyledForm";
+import { Link, useHistory } from "react-router-dom";
+import { validationFields } from "../../constants/constants";
 import { useEffect, useState } from "react";
-import padlock from "../padlock.png";
+import padlock from "../../padlock.png";
 
 const SignInForm = () => {
+  document.title = "Log in";
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const [allowed, setAllowed] = useState("none");
 
   const checkColorField = (e) =>
     validationFields[e.target.classList[0]].test(e.target.value)
       ? (e.target.closest(".input-wrapper").style.border = "2px solid green")
       : (e.target.closest(".input-wrapper").style.border = "2px solid red");
+
+  const storageData = JSON.parse(localStorage.getItem("user"));
+
+  const setStorageData = () => {
+    if (storageData) {
+      setEmail(storageData.email);
+      setPw(storageData.pw);
+    }
+  };
 
   const checkAuthorisation = () => {
     if (validationFields.email.test(email) && validationFields.pw.test(pw)) {
@@ -24,16 +36,21 @@ const SignInForm = () => {
     }
   };
 
-  const storageData = JSON.parse(localStorage.getItem("user"));
-
-  const removeData = () => !rememberMe && localStorage.clear();
+  const logIn = () => {
+    if (email === storageData?.email && pw === storageData?.pw) {
+      !rememberMe && localStorage.clear();
+      console.log("Data correct");
+      history.push("/home");
+    } else {
+      alert("This user doesn't exist");
+    }
+  };
 
   useEffect(() => {
-    document.title = "Log in";
-    if (storageData) {
-      setEmail(storageData.email);
-      setPw(storageData.pw);
-    }
+    setStorageData();
+  }, []);
+
+  useEffect(() => {
     checkAuthorisation();
   }, [email, pw, allowed]);
 
@@ -79,14 +96,13 @@ const SignInForm = () => {
           />
           <p>Remember me</p>
         </div>
-        <Link
-          to="/home"
+        <button
           className="sign-in-btn"
           style={{ pointerEvents: allowed }}
-          onClick={removeData}
+          onClick={logIn}
         >
           SIGN IN
-        </Link>
+        </button>
         <div className="form-additional">
           <p className="form-link">Forgot Password?</p>
           <Link to="/register" className="form-link">

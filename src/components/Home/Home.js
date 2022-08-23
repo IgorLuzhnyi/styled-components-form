@@ -1,4 +1,4 @@
-import { StyledHome } from "./styles/StyledHome";
+import { StyledHome } from "./StyledHome";
 import { Link } from "react-router-dom";
 
 const Home = () => {

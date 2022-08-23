@@ -1,10 +1,10 @@
 import { HashRouter, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { GLobalStyle } from "./components/styles/GlobalStyle";
-import SignInForm from "./components/SignInForm";
-import RegisterForm from "./components/RegisterForm";
-import { theme } from "./components/styles/theme";
-import Home from "./components/Home";
+import { GLobalStyle } from "./mainStyles/GlobalStyle";
+import SignInForm from "./components/Form/SignInForm";
+import RegisterForm from "./components/Form/RegisterForm";
+import { theme } from "./mainStyles/theme";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
