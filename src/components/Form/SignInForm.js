@@ -76,7 +76,7 @@ const SignInForm = () => {
           </div>
           <div className="input-wrapper">
             <input
-              type="text"
+              type="password"
               className="pw"
               placeholder="Password *"
               value={pw}
